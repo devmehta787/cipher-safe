@@ -89,6 +89,28 @@
             -webkit-appearance: none;
             margin: 0; 
         }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #resetConfirmation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #cf6679;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        #resetConfirmation input {
+            width: 60%;
+            margin-right: 1rem;
+        }
+        
+        #resetConfirmation button {
+            width: 30%;
+            background-color: #ff7597;
+        }
     </style>
 </head>
 <body>
@@ -102,6 +124,12 @@
             <button onclick="regeneratePassword()">Regenerate</button>
         </div>
         <div id="result"></div>
+        <button onclick="showResetConfirmation()" style="background-color: #cf6679; margin-top: 1rem;">Reset Database</button>
+        <div id="resetConfirmation" class="hidden">
+            <p>Type 'RESET' to confirm database reset:</p>
+            <input type="text" id="resetInput" placeholder="Type RESET">
+            <button onclick="confirmReset()">Confirm Reset</button>
+        </div>
     </div>
     <script>
         const API_URL = '';
@@ -172,6 +200,33 @@
             } else {
                 resultDiv.innerHTML = JSON.stringify(data, null, 2);
                 resultDiv.style.borderColor = '#bb86fc';
+            }
+        }
+
+        function showResetConfirmation() {
+            document.getElementById('resetConfirmation').classList.remove('hidden');
+        }
+
+        function confirmReset() {
+            const resetInput = document.getElementById('resetInput').value;
+            if (resetInput === 'RESET') {
+                resetDatabase();
+            } else {
+                displayResult({ error: 'Invalid confirmation. Database reset cancelled.' });
+            }
+            document.getElementById('resetConfirmation').classList.add('hidden');
+            document.getElementById('resetInput').value = '';
+        }
+
+        async function resetDatabase() {
+            try {
+                const response = await fetch(`${API_URL}/reset-database`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                displayResult({ error: 'Error resetting database' });
             }
         }
     </script>

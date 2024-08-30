@@ -177,6 +177,27 @@ app.put('/regenerate/:siteName', (req, res) => {
   );
 });
 
+app.post('/reset-database', (req, res) => {
+  db.run('DROP TABLE IF EXISTS passwords', (dropErr) => {
+    if (dropErr) {
+      console.error('Error dropping table:', dropErr);
+      return res.status(500).json({ error: 'Failed to reset database' });
+    }
+
+    db.run(`CREATE TABLE passwords (
+      site_name TEXT PRIMARY KEY,
+      encrypted_password TEXT NOT NULL
+    )`, (createErr) => {
+      if (createErr) {
+        console.error('Error creating table:', createErr);
+        return res.status(500).json({ error: 'Failed to reset database' });
+      }
+
+      res.json({ message: 'Database reset successfully. All passwords have been deleted.' });
+    });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   
