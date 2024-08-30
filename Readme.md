@@ -78,7 +78,9 @@ This project uses:
 - Backend:
   - Node.js
   - Express.js
+
 - Frontend:
   - HTML
+
 - Database:
   - SQLite
