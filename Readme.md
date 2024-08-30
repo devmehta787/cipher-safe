@@ -70,3 +70,15 @@ If you encounter decryption errors, it may be due to a changed encryption key. I
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Tech Stack
+
+This project uses:
+
+- Backend:
+  - Node.js
+  - Express.js
+- Frontend:
+  - HTML
+- Database:
+  - SQLite
