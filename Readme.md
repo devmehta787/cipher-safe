@@ -10,6 +10,7 @@ CipherSafe is a secure password manager that allows you to generate, store, and 
 - Regenerate passwords for existing entries
 - Clean, dark-themed user interface
 - Server-side encryption for added security
+- Database reset functionality with enhanced security measures
 
 ## Installation
 
@@ -42,6 +43,7 @@ CipherSafe is a secure password manager that allows you to generate, store, and 
    - Generate new passwords: Enter a site name and optional length, then click "Generate"
    - Retrieve passwords: Enter a site name and click "Get"
    - Regenerate passwords: Enter a site name and click "Regenerate" (caution: this will overwrite the existing password)
+   - Reset database: Click "Reset Database", type 'RESET' in the confirmation box, and click "Confirm Reset" (use with extreme caution)
 
 ## API Endpoints
 
@@ -55,18 +57,16 @@ CipherSafe is a secure password manager that allows you to generate, store, and 
 - Passwords are encrypted before being stored in the database
 - The encryption key is stored in the `.env` file and should be kept secret
 - Server-side encryption adds an extra layer of security
+- Database reset function is protected behind a confirmation process to prevent accidental data loss
 
 ## Troubleshooting
 
 If you encounter decryption errors, it may be due to a changed encryption key. In this case, you can reset the database:
 
-1. Make a POST request to `/reset-database` (you may want to implement this in the UI)
-2. Re-generate all your passwords
+1. Click the "Reset Database" button in the UI
+2. Type 'RESET' in the confirmation box and click "Confirm Reset"
+3. Re-generate all your passwords
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
